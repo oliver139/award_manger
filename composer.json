@@ -1,0 +1,22 @@
+{
+    "name": "oliver/dealer_manager",
+    "description": "Dealer Manager",
+    "license": "GPL-3.0",
+    "type": "prestashop-module",
+    "authors": [
+        {
+            "name": "Oliver",
+            "email": "oliver139.working@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "prepend-autoloader": false
+    },
+    "autoload": {
+        "classmap": ["classes/"]
+    }
+}
