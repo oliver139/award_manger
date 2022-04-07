@@ -92,6 +92,7 @@ class Award_Img_Manager extends Module
      */
     public function hooksRegistration() {
         $hooks = [
+            'actionFeatureDelete',
             'actionFeatureValueDelete',
         ];
 
@@ -138,21 +139,21 @@ class Award_Img_Manager extends Module
 
     private function addTab() {
         $res = true;
-        $tabparent = "AdminAwardImgManager";
+        $tabparent = "AdminCatalog";
         $id_parent = Tab::getIdFromClassName($tabparent);
-        if(!$id_parent){
-            $tab = new Tab();
-            $tab->active = 1;
-            $tab->class_name = "AdminAwardImgManager";
-            $tab->name = [];
-            foreach (Language::getLanguages() as $lang){
-                $tab->name[$lang["id_lang"]] = $this->l('Award Image Manager');
-            }
-            $tab->id_parent = 0;
-            $tab->module = $this->name;
-            $res &= $tab->add();
-            $id_parent = $tab->id;
-        }
+        // if(!$id_parent){
+        //     $tab = new Tab();
+        //     $tab->active = 1;
+        //     $tab->class_name = "AdminAwardImgManager";
+        //     $tab->name = [];
+        //     foreach (Language::getLanguages() as $lang){
+        //         $tab->name[$lang["id_lang"]] = $this->l('Award Image Manager');
+        //     }
+        //     $tab->id_parent = 0;
+        //     $tab->module = $this->name;
+        //     $res &= $tab->add();
+        //     $id_parent = $tab->id;
+        // }
         $subtabs = [
             [
                 'class'=>'AdminAwardImg',
@@ -177,9 +178,8 @@ class Award_Img_Manager extends Module
         return $res;
     }
 
-    private function removeTab()
-    {
-        $id_tabs = ["AdminAwardImg","AdminAwardImgManager"];
+    private function removeTab() {
+        $id_tabs = ["AdminAwardImg"];
         foreach($id_tabs as $id_tab){
             $idtab = Tab::getIdFromClassName($id_tab);
             $tab = new Tab((int)$idtab);
