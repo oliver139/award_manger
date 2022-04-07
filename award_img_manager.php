@@ -93,6 +93,7 @@ class Award_Img_Manager extends Module
     public function hooksRegistration() {
         $hooks = [
             'actionFeatureValueDelete',
+            'actionReadyWineAward',
         ];
 
         return $this->registerHook($hooks);
@@ -305,5 +306,26 @@ class Award_Img_Manager extends Module
 
     public function hookActionFeatureValueDelete($params) {
         return AwardImg::deleteByFeatureValue($params['id_feature_value']);
+    }
+
+    public function hookActionReadyWineAward($params) {
+        $id_feature = Configuration::get('AWARD_IMG_FEATURE_ID');
+        $sql = new DbQuery;
+        $sql->select('id_feature_value');
+        $sql->from('feature_product');
+        $sql->where('id_feature = ' . $id_feature);
+        $sql->where('id_product = ' . $params['id_product']);
+        $result = Db::getInstance()->executeS($sql);
+        $result = array_column($result,'id_feature_value');
+        
+        $record = AwardImg::getAllRecord();
+        $award_img = [];
+        foreach ($record as $key => $value) {
+            if (in_array($key, $result)) {
+                $award_img[] = '<img src="' . _PS_IMG_ . 'award_img/' . $value . '.jpg">';
+            }
+        }
+        
+        return $award_img;
     }
 }
