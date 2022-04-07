@@ -85,6 +85,7 @@ class AdminAwardImgController extends ModuleAdminController
     public function renderForm() {
         $awards = AwardImg::getUnpairAward($this->object->id_feature_value);
         
+        $awards_option = [];
         foreach ($awards as $key => $value) {
             $awards_option[] = [
                 'id' => $key,
@@ -139,12 +140,6 @@ class AdminAwardImgController extends ModuleAdminController
     public function getFieldsValue($obj) {
         if ($this->display == 'add') {
             $this->fields_value['active'] = 1;
-        } elseif ($this->display == 'edit') {
-            // $brands = DealerList::getEntryByDealer($this->object->id);
-            
-            // foreach ($brands as $brand) {
-            //     $this->fields_value['brands_' . $brand['id_dealer_brand']] = 1;
-            // }
         }
         return parent::getFieldsValue($obj);
     }

@@ -92,7 +92,6 @@ class Award_Img_Manager extends Module
      */
     public function hooksRegistration() {
         $hooks = [
-            'actionFeatureDelete',
             'actionFeatureValueDelete',
         ];
 
@@ -302,5 +301,9 @@ class Award_Img_Manager extends Module
             $output .= $this->displayConfirmation($this->l('Setting Updated!'));
         }
         return $output.$this->renderForm();
+    }
+
+    public function hookActionFeatureValueDelete($params) {
+        return AwardImg::deleteByFeatureValue($params['id_feature_value']);
     }
 }

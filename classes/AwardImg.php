@@ -40,6 +40,16 @@ class AwardImg extends ObjectModel
         ],
     ];
 
+    public function __construct($id = null, $idLang = null, $idShop = null) {
+        parent::__construct($id, $idLang, $idShop);
+
+        $this->image_dir = _PS_IMG_DIR_ . 'award_img/';
+    }
+
+    public function delete() {
+        return parent::delete() && $this->deleteImage();
+    }
+
     public static function getAllRecord($delete_value = null) {
         $sql = new DbQuery();
         $sql->select('id_award_img, id_feature_value');
@@ -61,7 +71,6 @@ class AwardImg extends ObjectModel
 
     }
 
-    // Not finish
     public static function getUnpairAward($selected_value = null) {
         $record = self::getAllRecord($selected_value);
 
